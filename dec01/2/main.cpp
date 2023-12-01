@@ -1,10 +1,13 @@
+/*
+ * December 1, 2023 - Puzzle 2
+ * Juno Meifert
+ */
 
 #include <iostream>
 #include <string>
-#include <regex>
 #include <filereader.hpp>
 
-
+/* Pushes a character onto a buffer */
 void push(std::string& buf, char c, bool rev) {
     buf = rev ? buf.substr(0, 4) : buf.substr(1, 4);
     if(rev) {
@@ -13,6 +16,8 @@ void push(std::string& buf, char c, bool rev) {
         buf += c;
     }
 }
+
+/* Checks if a buffer matches a string, returns as soon as it can decide */
 bool matchStr(std::string& buf, std::string cmp, bool rev) {
     uint dif = rev ? 0 : buf.length() - cmp.length();
 
@@ -22,6 +27,7 @@ bool matchStr(std::string& buf, std::string cmp, bool rev) {
     return true;
 }
 
+/* Matches a buffer to a digit. Not a fantastic way to do it but oh well */
 char matchDigit(std::string& buf, bool rev) {
     if(matchStr(buf, "one", rev)) { return '1'; }
     if(matchStr(buf, "two", rev)) { return '2'; }
@@ -35,6 +41,7 @@ char matchDigit(std::string& buf, bool rev) {
     return 'x';
 }
 
+/* Finds the sum of the first and last digits in the input string */
 uint flDigits(std::string& line) {
     uint result = 0;
     std::string buf = "-----";
@@ -53,8 +60,8 @@ uint flDigits(std::string& line) {
             result += (m - '0') * 10;
             break;
         }
-
     }
+
     /* find last digit */
     buf = "-----";
     for(int i = line.length() - 1; i >= 0; i--) {
@@ -84,4 +91,3 @@ int main() {
     }
     std::cout << sum << "\n";
 }
-

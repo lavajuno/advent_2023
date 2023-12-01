@@ -1,8 +1,13 @@
+/*
+ * December 1, 2023 - Puzzle 1
+ * Juno Meifert
+ */
 
 #include <iostream>
 #include <string>
 #include <filereader.hpp>
 
+/* Finds the sum of the first and last digits in the input string */
 uint flDigits(std::string& line) {
     uint result = 0;
     /* find first digit */
@@ -33,4 +38,3 @@ int main() {
     }
     std::cout << sum << "\n";
 }
-
