@@ -1,5 +1,5 @@
 /*
- * December 1, 2023 - Puzzle 1
+ * December 2, 2023 - Puzzle 2
  * Juno Meifert
  */
 
