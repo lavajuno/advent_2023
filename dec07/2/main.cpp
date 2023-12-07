@@ -77,7 +77,7 @@ private:
     }
 
     inline bool isTwoPair(std::vector<uint> counts) {
-        return counts.size() == 3 && counts.at(0) == 1 && counts.at(1) == 2;
+        return counts.size() == 3 && counts.at(1) == 2 && counts.at(2) == 2;
     }
 
     inline bool isOnePair(std::vector<uint> counts) {
@@ -118,6 +118,12 @@ private:
         if(counts.size() == 0) { counts.push_back(0); }
         std::sort(counts.begin(), counts.end());
         counts.at(counts.size() - 1) += n_jokers;
+        std::cout << "Jokers: " << n_jokers << "\n";
+        std::cout << "Counts: ";
+        for(int i = 0; i < counts.size(); i++) {
+            std::cout << counts.at(i) << " ";
+        }
+        std::cout << "\n";
         return counts;
     }
 
@@ -152,16 +158,18 @@ int main() {
     while(!f.eof()) {
         line = f.nextLine();
         Hand h(line);
-        hands.push_back(h);
+        //hands.push_back(h);
     }
-    std::sort(hands.begin(), hands.end(), Hand::compare);
+    //std::sort(hands.begin(), hands.end(), Hand::compare);
 
     u_long winnings = 0;
     for(uint i = 0; i < hands.size(); i++) {
-        hands.at(i).print();
+    hands.at(i).print();
         printf("  Winnings: %u\n", hands.at(i).getBid() * (i + 1));
         winnings += (u_long) hands.at(i).getBid() * (i + 1);
     }
-    printf("Result: %lu\n", winnings);
+    //printf("Result: %lu\n", winnings);
+    Hand h("456JJ 1");
+    h.print();
     return 0;
 }
