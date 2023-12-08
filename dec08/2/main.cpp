@@ -1,5 +1,5 @@
 /*
- * December 8, 2023 - Puzzle 1
+ * December 8, 2023 - Puzzle 2
  * Juno Meifert
  */
 
@@ -57,8 +57,6 @@ u_long findSteps(std::map<std::string, Node>& nodes, std::string& instructions,
     while(!isAtDest(curr_key)) {
         for(uint i = 0; i < instructions.size(); i++) {
             Node curr_node = nodes.at(curr_key);
-            //std::cout << curr_key << std::endl;
-            //std::cout << isAtDest(curr_key) << std::endl;
             if(instructions.at(i) == 'L') {
                 //printf("Moving left...\n");
                 curr_key = curr_node.left;
@@ -70,7 +68,6 @@ u_long findSteps(std::map<std::string, Node>& nodes, std::string& instructions,
             steps++;
             
         }
-        if(steps > 1000000000) { break; }
         if(isAtDest(curr_key)) { break; }
         
     }
@@ -116,7 +113,6 @@ int main() {
 
     u_long l = lcmv(k_steps);
     std::printf("Result: %lu\n", l);
-
 
     return 0;
 }
