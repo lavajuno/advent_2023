@@ -232,25 +232,22 @@ bool checkBounds(Pos p, uint n_rows, uint n_cols) {
  * @param pos Position of the current PipeSegment
  * @param n_rows Number of rows
  * @param n_cols Number of columns
- * @param alt Whether to use the alternate path for the start pipe
  */
 Pos getNext(
         std::vector<std::vector<PipeSegment>>& pipes,
-        Pos pos, uint n_rows, uint n_cols, bool alt = false)
-{
+        Pos pos, uint n_rows, uint n_cols
+) {
     std::vector<Pos> tries = pipes.at(pos.first).at(pos.second).getTries();
-    std::vector<Pos> connections({});
     for(uint i = 0; i < tries.size(); i++) {
         Pos pos_try = tries.at(i);
         if(checkBounds(pos_try, n_rows, n_cols)) {
             PipeSegment pipe_try = pipes.at(pos_try.first).at(pos_try.second);
             if(pipes.at(pos.first).at(pos.second).connectsTo(pipe_try) && !pipe_try.isVisited()) {
-                connections.push_back(Pos(pipe_try.getRow(), pipe_try.getCol()));
+                return Pos(pipe_try.getRow(), pipe_try.getCol());
             }
         }
     }
-    if(connections.size() > 1 && alt) { return connections.at(1); }
-    return connections.at(0);
+    return Pos(-1, -1);
 }
 
 int main() {
@@ -288,13 +285,13 @@ int main() {
     */
     
     uint distance = 0;
-    Pos c_pos = getNext(pipes, start_pos, n_rows, n_cols, true); // move off start
+    Pos c_pos = getNext(pipes, start_pos, n_rows, n_cols); // move off start
     distance++;
-    c_pos = getNext(pipes, c_pos, n_rows, n_cols, false); // move one more
+    c_pos = getNext(pipes, c_pos, n_rows, n_cols); // move one more
     distance++;
     pipes.at(start_pos.first).at(start_pos.second).resetVisited(); // reset visited on start
     while(!pipes.at(c_pos.first).at(c_pos.second).isStart()) {
-        c_pos = getNext(pipes, c_pos, n_rows, n_cols, false);
+        c_pos = getNext(pipes, c_pos, n_rows, n_cols);
         distance++;
     }
 
